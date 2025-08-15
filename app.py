@@ -82,7 +82,7 @@ with st.sidebar:
         }
     </style>
     <div class="footer">
-        <b>Pró-Corpo BI</b> | 🤖 Robô Analítico
+        <b>Pró-Corpo BI</b> | 🤖
     </div>
     """, unsafe_allow_html=True)
 
