@@ -43,6 +43,12 @@ st.markdown("""
         color: #4CAF50;
         font-weight: bold;
     }
+    .footer {
+        text-align: center;
+        color: #555;
+        font-size: 14px;
+        margin-top: 20px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -61,7 +67,7 @@ with st.sidebar:
     4. Baixe a planilha consolidada
     """)
     st.markdown("---")
-    st.markdown("**Pró-Corpo BI** | 🤖")
+    st.markdown('<div class="footer"><b>Pró-Corpo BI</b> | 🤖</div>', unsafe_allow_html=True)
 
 # Upload dos arquivos
 st.subheader("📤 Upload dos Arquivos")
@@ -117,19 +123,25 @@ if 'df_final' in st.session_state:
     st.subheader("📥 Exportar Resultados")
     
     def to_excel(df):
-        output = BytesIO()
-        writer = pd.ExcelWriter(output, engine='xlsxwriter')
-        df.to_excel(writer, index=False, sheet_name='Resultados')
-        writer.save()
-        processed_data = output.getvalue()
-        return processed_data
+        try:
+            output = BytesIO()
+            with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+                df.to_excel(writer, index=False, sheet_name='Resultados')
+            return output.getvalue()
+        except Exception as e:
+            st.error(f"Erro ao gerar arquivo Excel: {str(e)}")
+            return None
     
     excel_data = to_excel(st.session_state['df_final'])
     
-    st.download_button(
-        label="⬇️ Baixar Planilha em Excel",
-        data=excel_data,
-        file_name="Resultados_Indique_Multiplique.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        help="Clique para baixar os resultados em formato Excel"
-    )
+    if excel_data is not None:
+        st.download_button(
+            label="⬇️ Baixar Planilha em Excel",
+            data=excel_data,
+            file_name="Resultados_Indique_Multiplique.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            help="Clique para baixar os resultados em formato Excel"
+        )    
+# Rodapé
+st.markdown("---")
+st.markdown('<div class="footer">Pró-Corpo BI | 🤖</div>', unsafe_allow_html=True)
