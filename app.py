@@ -67,7 +67,24 @@ with st.sidebar:
     4. Baixe a planilha consolidada
     """)
     st.markdown("---")
-    st.markdown('<div class="footer"><b>Pró-Corpo BI</b> | 🤖</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <style>
+        .footer {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: sans-serif;
+        }
+        .footer b {
+            color: #4CAF50;
+        }
+    </style>
+    <div class="footer">
+        <b>Pró-Corpo BI</b> | 🤖 Robô Analítico
+    </div>
+    """, unsafe_allow_html=True)
 
 # Upload dos arquivos
 st.subheader("📤 Upload dos Arquivos")
