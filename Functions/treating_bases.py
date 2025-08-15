@@ -114,7 +114,7 @@ def merge_and_groupby(indique_df,appointments_df):
 
     # duplicados
 
-    indique_gp = base_indique_final.groupby(["Compartilhador",'Unidade']).agg({'Leads Gerados' : 'sum'}).reset_index()
+    indique_gp = base_indique_final.groupby(["Consultor",'Unidade']).agg({'Leads Gerados' : 'sum'}).reset_index()
 
     indique_gp = indique_gp.sort_values(by=['Leads Gerados'],ascending=False)
 
