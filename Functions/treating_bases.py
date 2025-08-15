@@ -118,6 +118,4 @@ def merge_and_groupby(indique_df,appointments_df):
 
     indique_gp = indique_gp.sort_values(by=['Leads Gerados'],ascending=False)
 
-    indique_gp = indique_gp.loc[indique_gp['Leads Gerados'] != 0]
-
     return indique_gp
