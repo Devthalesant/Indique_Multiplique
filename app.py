@@ -61,7 +61,7 @@ with st.sidebar:
     4. Baixe a planilha consolidada
     """)
     st.markdown("---")
-    st.markdown("Pró-Corpo BI| 🤖")
+    st.markdown("Pró-Corpo BI | 🤖")
 
 # Upload dos arquivos
 st.subheader("📤 Upload dos Arquivos")
