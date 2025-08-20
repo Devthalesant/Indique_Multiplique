@@ -59,6 +59,8 @@ def treating_appointments(appointments_sheet):
 
 def treating_indicate(indicate_excel):
     
+    xls = pd.ExcelFile(indicate_excel)
+
     # Lista para guardar os dataframes de cada aba
     dfs = []
 
