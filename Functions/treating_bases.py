@@ -78,19 +78,23 @@ def treating_indicate(indicate_excel):
     # Concatenar todos os dataframes
     indique_df = pd.concat(dfs, ignore_index=True)
 
+    indique_df['Telefone compartilhador'] = indique_df['Telefone compartilhador'].astype(str)
+
     return indique_df
 
 def merge_and_groupby(indique_df,appointments_df):
 
-    indique_appointments_merge_email = pd.merge(indique_df,appointments_df,
+    indique_appointments_merge_email = pd.merge(indique_df,appointments_df[['Email','ID agendamento','Data','ID cliente', 'Status']],
                                         left_on='Email compartilhador',
                                         right_on='Email',
-                                        how='left')
+                                        how='left'
+                                        )
 
-    indique_appointments_merge_telefone = pd.merge(indique_df,appointments_df,
+    indique_appointments_merge_telefone = pd.merge(indique_df,appointments_df[['Telefone','ID agendamento','Data','ID cliente', 'Status']],
                                         left_on='Telefone compartilhador',
                                         right_on='Telefone',
-                                        how='left')
+                                        how='left'
+                                        )
 
     indique_appointments_merge_final = pd.concat([indique_appointments_merge_email,indique_appointments_merge_telefone])
 
