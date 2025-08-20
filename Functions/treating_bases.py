@@ -59,8 +59,6 @@ def treating_appointments(appointments_sheet):
 
 def treating_indicate(indicate_excel):
     
-    xls = pd.ExcelFile(indicate_excel)
-
     # Lista para guardar os dataframes de cada aba
     dfs = []
 
@@ -96,6 +94,8 @@ def merge_and_groupby(indique_df,appointments_df):
                                         how='left'
                                         )
 
+
+
     indique_appointments_merge_final = pd.concat([indique_appointments_merge_email,indique_appointments_merge_telefone])
 
     indique_appointments_merge_final = indique_appointments_merge_final.loc[~indique_appointments_merge_final['ID agendamento'].isna()]
@@ -105,8 +105,8 @@ def merge_and_groupby(indique_df,appointments_df):
     base_indique_final = indique_appointments_merge_final
 
     base_indique_final_columns = ['ID', 'Compartilhador', 'Email compartilhador',
-                                'Telefone compartilhador', 'Consultor','Unidade', 'Criado em',
-                                'ID agendamento', 'Data','ID cliente', 'Status','Leads Gerados']
+                                    'Telefone compartilhador', 'Consultor','Unidade', 'Criado em',
+                                    'ID agendamento', 'Data','ID cliente', 'Status','Leads Gerados']
 
     base_indique_final = base_indique_final[base_indique_final_columns]
 
@@ -120,6 +120,6 @@ def merge_and_groupby(indique_df,appointments_df):
 
     indique_gp = base_indique_final.groupby(["Consultor",'Unidade']).agg({'Leads Gerados' : 'sum'}).reset_index()
 
-    indique_gp = indique_gp.sort_values(by=['Leads Gerados'],ascending=False)
+    indique_gp = indique_gp.sort_values(by=['Leads Gerados'],ascending=False).reset_index(drop=True)
 
     return indique_gp
