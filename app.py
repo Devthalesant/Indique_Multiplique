@@ -109,11 +109,11 @@ if st.button("🔍 Processar Dados", help="Clique para processar os dados"):
     if appointments_sheet is not None and indicate_excel is not None:
         with st.spinner("Processando dados... Por favor, aguarde."):
             try:
-                appointments_df = treating_appointments(appointments_sheet)
+                # appointments_df = treating_appointments(appointments_sheet)
                 indique_df = treating_indicate(indicate_excel)
-                df_final = merge_and_groupby(indique_df, appointments_df)
+                # df_final = merge_and_groupby(indique_df, appointments_df)
                 
-                st.session_state['df_final'] = df_final
+                st.session_state['indique_df'] = indique_df
                 st.success("✅ Dados processados com sucesso!")
                 
             except Exception as e:
@@ -122,13 +122,13 @@ if st.button("🔍 Processar Dados", help="Clique para processar os dados"):
         st.warning("⚠️ Por favor, faça upload de ambos os arquivos antes de processar.")
 
 # Exibição dos resultados
-if 'df_final' in st.session_state:
+if 'indique_df' in st.session_state:
     st.markdown("---")
     st.subheader("📋 Resultados Consolidados")
     
     # Mostrar dataframe com estilo
     st.dataframe(
-        st.session_state['df_final'].style
+        st.session_state['indique_df'].style
         .background_gradient(cmap='Blues')
         .set_properties(**{'text-align': 'left'})
         .format(precision=2),
@@ -149,7 +149,7 @@ if 'df_final' in st.session_state:
             st.error(f"Erro ao gerar arquivo Excel: {str(e)}")
             return None
     
-    excel_data = to_excel(st.session_state['df_final'])
+    excel_data = to_excel(st.session_state['indique_df'])
     
     if excel_data is not None:
         st.download_button(

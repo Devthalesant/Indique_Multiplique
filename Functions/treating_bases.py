@@ -79,6 +79,13 @@ def treating_indicate(indicate_excel):
     indique_df = pd.concat(dfs, ignore_index=True)
 
     indique_df['Telefone compartilhador'] = indique_df['Telefone compartilhador'].astype(str)
+    
+    # Adicionados para não haver validação alguma - retirar depois 
+    indique_df = indique_df.groupby(['Consultor','Unidade']).agg({'Leads Gerados':'sum'}).reset_index()
+
+    indique_df = indique_df.loc[indique_df['Consultor'] != "-"]
+
+    indique_df = indique_df.sort_values(by=['Leads Gerados'],ascending=False)
 
     return indique_df
 
